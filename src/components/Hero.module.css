@@ -4,7 +4,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 40vh;
+    height: 45vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,11 +15,17 @@
 
 .hero p {
     font-size: 1.6em;
+
+    @media screen and (max-width: 700px) {
+        max-width: 18ch;
+        padding-left: 0.5em;
+    }
 }
 
 .searchbarWrapper {
     display: flex;
     align-items: center;
+
 
 }
 
@@ -30,6 +37,11 @@
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
     background-color: rgba(219, 197, 222, 0.5);
+
+    @media screen and (max-width: 700px) {
+        width: 210px;
+        padding-left: 0.5em;
+    }
 }
 
 .button {
