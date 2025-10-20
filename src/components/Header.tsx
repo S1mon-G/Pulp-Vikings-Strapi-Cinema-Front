@@ -38,22 +38,23 @@ export default function Header() {
       <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ""}`}>
         <ul>
           <li>
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
               Accueil
             </Link>
           </li>
           <li>
-            <Link to="/movies" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/movies" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
               Films
             </Link>
           </li>
           <li>
-            <Link to="/actors" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/actors" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
               Acteurs
             </Link>
           </li>
           <li>
-            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/login" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}
+            >
               Connexion
             </Link>
           </li>
