@@ -1,0 +1,42 @@
+.hero {
+    background: linear-gradient(rgba(217, 217, 217, 0.4),
+            rgba(217, 217, 217, 0.2)), url(../../img/hero-background.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+
+.hero p {
+    font-size: 1.6em;
+}
+
+.searchbarWrapper {
+    display: flex;
+    align-items: center;
+
+}
+
+.searchbar {
+    width: 500px;
+    height: 50px;
+    padding-left: 1em;
+    border: none;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: rgba(219, 197, 222, 0.5);
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: var(--third-background-color)
+}
