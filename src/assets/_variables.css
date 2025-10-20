@@ -1,0 +1,14 @@
+:root {
+    --main-font: 'Roboto', sans-serif;
+    --main-font-color: white;
+    --main-background-color: #120926;
+    --secondary-background-color: #001534;
+    --border-color: #9747FF;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url("/assets/fonts/roboto.woff2") format('woff2'),
+        url("/assets/fonts/roboto.woff") format('woff');
+    font-display: swap;
+}
