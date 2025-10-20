@@ -1,11 +1,11 @@
-import Hero from "./components/Hero"
-import "./App.css"
-import "../src/assets/_variables.css"
+import "./App.css";
+import Hero from "./components/Hero";
 
 function App() {
   return (
     <Hero />
   )
+
 }
 
-export default App
+export default App;

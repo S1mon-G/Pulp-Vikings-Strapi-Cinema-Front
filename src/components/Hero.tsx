@@ -10,7 +10,7 @@ export default function Hero() {
                 </p>
                 <form className={styles.searchbarWrapper}>
                     <input type="search" className={styles.searchbar} placeholder="recherchez par film, par acteur..." />
-                    <button type="submit" className={styles.button}><Search /></button>
+                    <button type="submit" className={styles.searchButton}><Search /></button>
                 </form>
             </section>
 
