@@ -1,18 +1,15 @@
 import type { StrapiResponse } from "./strapi";
 
-export interface Movie {
+export interface Actor {
   id: number;
   documentId: string;
-  title: string;
-  description: string;
-  release_date: string;
-  director: string;
+  birth_date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   img: string;
-  vote_average: number;
+  name: string;
   tmdb_id: number;
 }
 
-export type MoviesResponse = StrapiResponse<Movie>;
+export type ActorsResponse = StrapiResponse<Actor>;

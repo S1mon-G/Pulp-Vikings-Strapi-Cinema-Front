@@ -7,18 +7,7 @@ import {
 } from "react";
 import { shuffleArray, getRandomNumber } from "../utils/arrayHelpers";
 import { PAGINATION_CONFIG } from "../constants/pagination";
-
-interface StrapiResponse<T> {
-  data: T[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+import type { StrapiResponse } from "../types/strapi";
 
 interface UseInfiniteRandomScrollProps<T> {
   fetchFn: (page: number, pageSize?: number) => Promise<StrapiResponse<T>>;

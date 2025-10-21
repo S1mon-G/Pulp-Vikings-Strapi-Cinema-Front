@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import styles from "./MovieCard.module.css";
 import type { Movie } from "../types/movie";
+import { Link } from "react-router-dom";
 
 interface MovieCardProps {
   movie: Movie;
@@ -10,11 +11,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
   ({ movie }, ref) => {
     return (
       <>
-        <a
-          href={`/movies/${movie.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Link to={`/movies/${movie.id}`}>
           <div ref={ref} className={styles.movieCard}>
             <img
               src={movie.img}
@@ -28,7 +25,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
               {Math.round(movie.vote_average)}/10
             </div>
           </div>
-        </a>
+        </Link>
       </>
     );
   }
