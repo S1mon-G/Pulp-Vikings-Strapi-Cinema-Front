@@ -25,8 +25,7 @@
 .searchbarWrapper {
     display: flex;
     align-items: center;
-
-
+    position: relative;
 }
 
 .searchbar {
@@ -37,6 +36,7 @@
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
     background-color: rgba(219, 197, 222, 0.5);
+    z-index: 1;
 
     @media screen and (max-width: 768px) {
         width: 210px;
@@ -50,5 +50,38 @@
     border: none;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    background-color: var(--third-background-color)
+    background-color: var(--third-background-color);
+    z-index: 1;
+}
+
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(219, 197, 222, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 0 0 12px 12px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestionItem {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.suggestionItem:hover {
+    background-color: rgba(219, 197, 222, 0.7);
+    /* slightly darker on hover */
+}
+
+.suggestionType {
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 6px;
 }
