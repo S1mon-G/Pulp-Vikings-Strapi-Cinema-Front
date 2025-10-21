@@ -14,7 +14,7 @@ export default function Hero() {
 
     const fetchSearchResults = async (query: string, limit = 5) => {
         const res = await fetch(
-            `http://localhost:1337/api/search?q=${encodeURIComponent(query)}&limit=${limit}`
+            `${import.meta.env.VITE_API_URL}/search?q=${encodeURIComponent(query)}&limit=${limit}`
         );
         if (!res.ok) throw new Error("Failed to fetch search results");
         const data = await res.json();
