@@ -1,15 +1,30 @@
-.scrollList {
-  width: 100%;
-  padding: 2rem 0;
-}
-
-.scrollList h2 {
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-}
-
 .scrollWrapper {
   position: relative;
+}
+
+.refreshOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  border-radius: 8px;
+}
+
+.refreshSpinner {
+  background: var(--background-color);
+  color: var(--main-font-color);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .navBtn {
@@ -66,7 +81,6 @@
 .scrollContainer::-webkit-scrollbar {
   display: none;
 }
-
 
 @media (max-width: 768px) {
   .scrollContainer {

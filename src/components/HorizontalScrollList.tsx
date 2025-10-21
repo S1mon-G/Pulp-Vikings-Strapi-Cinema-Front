@@ -5,7 +5,6 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import type { StrapiResponse } from "../types/strapi";
 
 interface HorizontalScrollListProps<T> {
-  title: string;
   fetchFn: (pageSize?: number) => Promise<StrapiResponse<T>>;
   renderItem: (
     item: T,
@@ -20,7 +19,6 @@ interface HorizontalScrollListProps<T> {
 }
 
 export default function HorizontalScrollList<T>({
-  title,
   fetchFn,
   renderItem,
   keyExtractor,
@@ -34,11 +32,18 @@ export default function HorizontalScrollList<T>({
 
   useHorizontalScroll(scrollContainerRef);
 
-  const { items, loading, error, hasMore, lastItemRef } = useInfiniteScroll({
-    fetchFn,
-    scrollContainerRef,
-    pageSize,
-  });
+  const { items, loading, isRefreshing, error, hasMore, lastItemRef, refresh } =
+    useInfiniteScroll({
+      fetchFn,
+      scrollContainerRef,
+      pageSize,
+    });
+
+  useEffect(() => {
+    if (items.length > 0) {
+      refresh();
+    }
+  }, [fetchFn]);
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
@@ -88,42 +93,45 @@ export default function HorizontalScrollList<T>({
   }
 
   return (
-    <div className={styles.scrollList}>
-      <h2>{title}</h2>
-      <div className={styles.scrollWrapper}>
-        <button
-          onClick={scrollLeft}
-          disabled={!canScrollLeft}
-          className={`${styles.navBtn} ${styles.navBtnLeft}`}
-          aria-label="Scroller vers la gauche"
-        >
-          ←
-        </button>
-        <button
-          onClick={scrollRight}
-          disabled={!canScrollRight}
-          className={`${styles.navBtn} ${styles.navBtnRight}`}
-          aria-label="Scroller vers la droite"
-        >
-          →
-        </button>
-        <div className={styles.scrollContainer} ref={scrollContainerRef}>
-          {items.map((item, index) => {
-            const isLast = items.length === index + 1;
-            return (
-              <div key={keyExtractor(item, index)}>
-                {renderItem(
-                  item,
-                  index,
-                  isLast,
-                  isLast ? lastItemRef : undefined
-                )}
-              </div>
-            );
-          })}
-          {loading && <div className={styles.loading}>Chargement...</div>}
-          {!hasMore && <div className={styles.end}>Fin</div>}
+    <div className={styles.scrollWrapper}>
+      {isRefreshing && (
+        <div className={styles.refreshOverlay}>
+          <div className={styles.refreshSpinner}>Chargement...</div>
         </div>
+      )}
+
+      <button
+        onClick={scrollLeft}
+        disabled={!canScrollLeft}
+        className={`${styles.navBtn} ${styles.navBtnLeft}`}
+        aria-label="Scroller vers la gauche"
+      >
+        ←
+      </button>
+      <button
+        onClick={scrollRight}
+        disabled={!canScrollRight}
+        className={`${styles.navBtn} ${styles.navBtnRight}`}
+        aria-label="Scroller vers la droite"
+      >
+        →
+      </button>
+      <div className={styles.scrollContainer} ref={scrollContainerRef}>
+        {items.map((item, index) => {
+          const isLast = items.length === index + 1;
+          return (
+            <div key={keyExtractor(item, index)}>
+              {renderItem(
+                item,
+                index,
+                isLast,
+                isLast ? lastItemRef : undefined
+              )}
+            </div>
+          );
+        })}
+        {loading && <div className={styles.loading}>Chargement...</div>}
+        {!hasMore && <div className={styles.end}>Fin</div>}
       </div>
     </div>
   );

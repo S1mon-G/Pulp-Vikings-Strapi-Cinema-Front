@@ -20,6 +20,7 @@ export const useInfiniteScroll = <T>({
 }: UseInfiniteScrollProps<T>) => {
   const [items, setItems] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -45,7 +46,7 @@ export const useInfiniteScroll = <T>({
     }
   }, [fetchFn, pageSize, loading, hasMore]);
 
-  // Intersection Observer pour détecter quand on arrive au dernier élément
+  // Et ici c'est pour charger avant d'arriver au bout de la liste
   const lastItemRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (loading) return;
@@ -59,7 +60,7 @@ export const useInfiniteScroll = <T>({
         },
         {
           root: scrollContainerRef.current,
-          rootMargin: "0px 200px 0px 0px", // Charger un peu avant d'arriver au bout
+          rootMargin: "0px 200px 0px 0px", // <== augmenter si besoin !!!
           threshold: 0.1,
         }
       );
@@ -69,16 +70,33 @@ export const useInfiniteScroll = <T>({
     [loading, hasMore, loadMoreItems, scrollContainerRef]
   );
 
-  // Charger les premiers items au montage
+  // Evite un flicker (prévention contre l'épillepsie on est des gens sympa)
+  const refresh = useCallback(async () => {
+    setIsRefreshing(true);
+    setError(null);
+
+    try {
+      const data = await fetchFn(pageSize);
+      setItems(data.data);
+      setHasMore(data.data.length > 0);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Une erreur est survenue");
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [fetchFn, pageSize]);
+
   useEffect(() => {
     loadMoreItems();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     items,
     loading,
+    isRefreshing,
     error,
     hasMore,
     lastItemRef,
+    refresh,
   };
 };

@@ -22,6 +22,16 @@ export const movieService = {
     return api.get<Movie>(`/movies/${id}`);
   },
 
+  getMoviesByRating: async (
+    order: "asc" | "desc" = "desc",
+    pageSize: number = 25
+  ): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/by-rating", {
+      order,
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
   searchMovies: async (query: string): Promise<MoviesResponse> => {
     return api.get<MoviesResponse>("/movies/search", { q: query });
   },
