@@ -12,6 +12,12 @@ export const movieService = {
     });
   },
 
+  getRandomMovies: async (pageSize: number = 25): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/random-list", {
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
   getMovieById: async (id: number): Promise<Movie> => {
     return api.get<Movie>(`/movies/${id}`);
   },

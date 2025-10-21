@@ -12,6 +12,12 @@ export const actorService = {
     });
   },
 
+  getRandomActors: async (pageSize: number = 25): Promise<ActorsResponse> => {
+    return api.get<ActorsResponse>("/actors/random-list", {
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
   getActorById: async (id: number): Promise<Actor> => {
     return api.get<Actor>(`/actors/${id}`);
   },

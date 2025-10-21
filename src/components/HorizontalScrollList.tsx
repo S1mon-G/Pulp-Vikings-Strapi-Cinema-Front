@@ -1,12 +1,12 @@
 import { useRef, useState, useEffect, type ReactNode } from "react";
 import styles from "./HorizontalScrollList.module.css";
 import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
-import { useInfiniteRandomScroll } from "../hooks/useInfiniteRandomScroll";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import type { StrapiResponse } from "../types/strapi";
 
 interface HorizontalScrollListProps<T> {
   title: string;
-  fetchFn: (page: number, pageSize?: number) => Promise<StrapiResponse<T>>;
+  fetchFn: (pageSize?: number) => Promise<StrapiResponse<T>>;
   renderItem: (
     item: T,
     index: number,
@@ -16,6 +16,7 @@ interface HorizontalScrollListProps<T> {
   keyExtractor: (item: T, index: number) => string;
   itemWidth?: number;
   itemsPerScroll?: number;
+  pageSize?: number;
 }
 
 export default function HorizontalScrollList<T>({
@@ -25,6 +26,7 @@ export default function HorizontalScrollList<T>({
   keyExtractor,
   itemWidth = 250,
   itemsPerScroll = 6,
+  pageSize = 25,
 }: HorizontalScrollListProps<T>) {
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -32,11 +34,11 @@ export default function HorizontalScrollList<T>({
 
   useHorizontalScroll(scrollContainerRef);
 
-  const { items, loading, error, hasMore, lastItemRef } =
-    useInfiniteRandomScroll({
-      fetchFn,
-      scrollContainerRef,
-    });
+  const { items, loading, error, hasMore, lastItemRef } = useInfiniteScroll({
+    fetchFn,
+    scrollContainerRef,
+    pageSize,
+  });
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {

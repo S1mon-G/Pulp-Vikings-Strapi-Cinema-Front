@@ -7,7 +7,7 @@ export default function ActorList() {
   return (
     <HorizontalScrollList<Actor>
       title="Acteurs"
-      fetchFn={actorService.getActors}
+      fetchFn={actorService.getRandomActors}
       renderItem={(actor, _index, isLast, ref) =>
         isLast ? (
           <ActorCard ref={ref} actor={actor} />
@@ -18,6 +18,7 @@ export default function ActorList() {
       keyExtractor={(actor, index) => `${actor.id}-${index}`}
       itemWidth={250}
       itemsPerScroll={6}
+      pageSize={25}
     />
   );
 }

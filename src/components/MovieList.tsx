@@ -7,7 +7,7 @@ export default function MovieList() {
   return (
     <HorizontalScrollList<Movie>
       title="Films"
-      fetchFn={movieService.getMovies}
+      fetchFn={movieService.getRandomMovies}
       renderItem={(movie, _index, isLast, ref) =>
         isLast ? (
           <MovieCard ref={ref} movie={movie} />
@@ -18,6 +18,7 @@ export default function MovieList() {
       keyExtractor={(movie, index) => `${movie.id}-${index}`}
       itemWidth={250}
       itemsPerScroll={6}
+      pageSize={25}
     />
   );
 }
