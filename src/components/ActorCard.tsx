@@ -11,7 +11,7 @@ const ActorCard = forwardRef<HTMLDivElement, ActorCardProps>(
   ({ actor }, ref) => {
     return (
       <>
-        <Link to={`/actors/${actor.id}`}>
+        <Link to={`/actors/${actor.documentId}`}>
           <div ref={ref} className={styles.actorCard}>
             <img
               src={actor.img ? actor.img : "./img/placeholder-actor.jpg"}

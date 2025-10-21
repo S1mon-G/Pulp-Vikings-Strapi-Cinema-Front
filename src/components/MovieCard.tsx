@@ -11,7 +11,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
   ({ movie }, ref) => {
     return (
       <>
-        <Link to={`/movies/${movie.id}`}>
+        <Link to={`/movies/${movie.documentId}`}>
           <div ref={ref} className={styles.movieCard}>
             <img
               src={movie.img}
