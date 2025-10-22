@@ -11,7 +11,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
   ({ movie }, ref) => {
     return (
       <>
-        <Link to={`/movies/${movie.documentId}`}>
+        <Link to={`/movies/${movie.id}`}>
           <div ref={ref} className={styles.movieCard}>
             <img
               src={movie.img}
@@ -22,7 +22,9 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
               <h3 className={styles.title}>{movie.title}</h3>
             </div>
             <div className={styles.voteAverage}>
-              {Math.round(movie.vote_average)}/10
+              {movie.vote_average % 1 === 0
+                ? movie.vote_average
+                : movie.vote_average.toFixed(1)}
             </div>
           </div>
         </Link>
