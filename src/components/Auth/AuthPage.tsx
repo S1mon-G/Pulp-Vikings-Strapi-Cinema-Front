@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import './AuthPage.css';
+import styles from './AuthPage.module.css';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,11 +37,11 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <div className="auth-tabs">
+    <div className= {styles.authContainer}>
+      <div className= {styles.authBox}>
+        <div className= {styles.authTabs}>
           <button
-            className={`auth-tab ${isLogin ? 'active' : ''}`}
+            className={`{styles.authTab} ${isLogin ? 'active' : ''}`}
             onClick={() => {
               setIsLogin(true);
               setError('');
@@ -50,7 +50,7 @@ const AuthPage = () => {
             Connexion
           </button>
           <button
-            className={`auth-tab ${!isLogin ? 'active' : ''}`}
+            className={`${styles.authTab} ${!isLogin ? 'active' : ''}`}
             onClick={() => {
               setIsLogin(false);
               setError('');
@@ -60,18 +60,18 @@ const AuthPage = () => {
           </button>
         </div>
 
-        <div className="auth-form-container">
+        <div className= {styles.authFormContainer}>
           <h2>{isLogin ? 'Connexion' : 'Inscription'}</h2>
 
           {error && (
-            <div className="auth-alert auth-alert-error">
+            <div className={`${styles.authAlert} ${styles.authAlertError}`}>
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
             {!isLogin && (
-              <div className="auth-form-group">
+              <div className={styles.authFormGroup}>
                 <label htmlFor="username">Nom d'utilisateur</label>
                 <input
                   type="text"
@@ -84,7 +84,7 @@ const AuthPage = () => {
               </div>
             )}
 
-            <div className="auth-form-group">
+            <div className={styles.authFormGroup}>
               <label htmlFor="email">
                 {isLogin ? 'Email ou nom d\'utilisateur' : 'Email'}
               </label>
@@ -98,7 +98,7 @@ const AuthPage = () => {
               />
             </div>
 
-            <div className="auth-form-group">
+            <div className={styles.authFormGroup}>
               <label htmlFor="password">Mot de passe</label>
               <input
                 type="password"
@@ -113,7 +113,7 @@ const AuthPage = () => {
 
             <button
               type="submit"
-              className="auth-btn"
+              className={styles.authBtn}
               disabled={loading}
             >
               {loading

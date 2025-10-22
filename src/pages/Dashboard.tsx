@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Dashboard.css';
+import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -14,35 +14,35 @@ const Dashboard = () => {
   if (!user) return null;
 
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-card">
-        <div className="dashboard-header">
+    <div className={styles.dashboardContainer}>
+      <div className={styles.dashboardCard}>
+        <div className={styles.dashboardHeader}>
           <h1>Tableau de bord</h1>
-          <button onClick={handleLogout} className="logout-btn">
+          <button onClick={handleLogout} className={styles.logoutBtn}>
             Se déconnecter
           </button>
         </div>
 
-        <div className="user-profile">
-          <div className="user-avatar">
+        <div className={styles.userProfile}>
+          <div className={styles.userAvatar}>
             {user.username.charAt(0).toUpperCase()}
           </div>
-          <div className="user-info">
+          <div className={styles.userInfo}>
             <h2>{user.username}</h2>
-            <p className="user-email">{user.email}</p>
-            <div className="user-badges">
+            <p className={styles.userEmail}>{user.email}</p>
+            <div className={styles.userBadges}>
               {user.confirmed && (
-                <span className="badge badge-success">✓ Confirmé</span>
+                <span className={`${styles.badge} ${styles.badgeSuccess}`}>✓ Confirmé</span>
               )}
               {!user.blocked && (
-                <span className="badge badge-info">Actif</span>
+                <span className={`${styles.badge} ${styles.badgeInfo}`}>Actif</span>
               )}
             </div>
           </div>
         </div>
 
-        <div className="dashboard-content">
-          <div className="info-card">
+        <div className={styles.dashboardContent}>
+          <div className={styles.infoCard}>
             <h3>🎬 Bienvenue sur Pulp Vikings Cinema</h3>
             <p>
               Vous êtes maintenant connecté ! Cette page est protégée et
@@ -50,20 +50,20 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-value">ID: {user.id}</div>
-              <div className="stat-label">Identifiant</div>
+          <div className={styles.statsGrid}>
+            <div className={styles.statCard}>
+              <div className={styles.statValue}>ID: {user.id}</div>
+              <div className={styles.statLabel}>Identifiant</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-value">
+            <div className={styles.statCard}>
+              <div className={styles.statValue}>
                 {user.confirmed ? '✓' : '✗'}
               </div>
-              <div className="stat-label">Compte vérifié</div>
+              <div className={styles.statLabel}>Compte vérifié</div>
             </div>
           </div>
 
-          <div className="action-section">
+          <div className={styles.actionSection}>
             <h3>Actions disponibles</h3>
             <p>
               Vous pouvez maintenant utiliser toutes les fonctionnalités de
