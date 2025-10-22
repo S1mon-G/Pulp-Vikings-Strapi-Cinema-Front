@@ -1,0 +1,88 @@
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.movieCardSkeleton {
+  min-width: 200px;
+  max-width: 200px;
+  height: 300px;
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  flex-shrink: 0;
+  background: var(--secondary-background-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-background-color) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    var(--secondary-background-color) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.skeletonOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 40%,
+    rgba(0, 0, 0, 0.4) 85%,
+    rgba(0, 0, 0, 0.1) 90%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.skeletonTitle {
+  height: 1.1rem;
+  width: 80%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 4px;
+}
+
+.skeletonVote {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  z-index: 3;
+  animation: shimmer 2s infinite linear;
+}
+
+@media (max-width: 768px) {
+  .movieCardSkeleton {
+    min-width: 150px;
+    max-width: 150px;
+    height: 200px;
+  }
+}

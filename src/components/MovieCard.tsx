@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import styles from "./MovieCard.module.css";
 import type { Movie } from "../types/movie";
 import { Link } from "react-router-dom";
@@ -31,6 +31,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
               src={movie.img}
               alt={movie.title}
               className={styles.movieImage}
+              loading="lazy"
             />
             <div className={styles.overlay}>
               <h3 className={styles.title}>{movie.title}</h3>
@@ -54,4 +55,4 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
 
 MovieCard.displayName = "MovieCard";
 
-export default MovieCard;
+export default memo(MovieCard);
