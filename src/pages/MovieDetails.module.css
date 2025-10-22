@@ -1,0 +1,38 @@
+.movieSection {
+    margin: 3em 0;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+
+    @media screen and (max-width: 768px) {
+        margin: 5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+
+    }
+}
+
+.movieInfos {
+    grid-column: span 2 / span 2;
+    max-width: 70vw;
+}
+
+.moviePoster {
+    grid-row: span 4 / span 4;
+    grid-row-start: 2
+}
+
+.moviePoster img {
+    width: 300px;
+    border: solid 1px var(--border-color);
+    border-radius: 12px;
+}
+
+.movieDescription {
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+    max-width: 65ch;
+}
