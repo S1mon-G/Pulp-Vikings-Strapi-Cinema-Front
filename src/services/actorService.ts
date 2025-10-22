@@ -25,4 +25,14 @@ export const actorService = {
   searchActors: async (query: string): Promise<ActorsResponse> => {
     return api.get<ActorsResponse>("/actors/search", { q: query });
   },
+
+  getActorsByPopularity: async (
+    order: "asc" | "desc" = "desc",
+    pageSize: number = 25
+  ): Promise<ActorsResponse> => {
+    return api.get<ActorsResponse>("/actors/by-rating", {
+      order,
+      "pagination[pageSize]": pageSize,
+    });
+  },
 };
