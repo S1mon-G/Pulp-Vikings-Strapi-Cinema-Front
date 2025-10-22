@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import styles from "./Details.module.css"
 
 export default function ActorDetails() {
   const { id } = useParams<{ id: string }>();
@@ -9,7 +10,7 @@ export default function ActorDetails() {
   useEffect(() => {
     const fetchActor = async () => {
       try {
-        const res = await fetch(`http://localhost:1337/api/actors/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/actors/${id}`);
         const data = await res.json();
         setActor(data.data);
       } catch (err) {
@@ -26,10 +27,17 @@ export default function ActorDetails() {
   if (!actor) return <p>Actor not found</p>;
 
   return (
-    <div>
-      <h1>{actor.name}</h1>
-      <img src={actor.img} alt={actor.name} />
-      <p>{actor.description}</p>
-    </div>
+    <section className={`${styles.section} ${styles.actorSection}`}>
+      <article className={styles.infos}>
+        <h1>{actor.name}</h1>
+        <h3>{actor.birth_date}</h3>
+      </article>
+      <div className={`${styles.thumbnail} ${styles.actorIllustration}`}>
+        <img src={actor.img} alt={actor.name} />
+      </div>
+      <article className={styles.description}>
+        <p>{actor.biography}</p>
+      </article>
+    </section>
   );
 }
