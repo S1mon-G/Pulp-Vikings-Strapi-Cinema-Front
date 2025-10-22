@@ -7,6 +7,15 @@ interface ActorCardProps {
   actor: Actor;
 }
 
+const getPopularityEmoji = (popularity: number): string => {
+  if (popularity >= 10) return "★★★★★";
+  if (popularity >= 5) return "☆★★★★";
+  if (popularity >= 3) return "☆☆★★★";
+  if (popularity >= 2) return "☆☆☆★★";
+  if (popularity >= 0.5) return "☆☆☆☆★";
+  return "☆☆☆☆☆";
+};
+
 const ActorCard = forwardRef<HTMLDivElement, ActorCardProps>(
   ({ actor }, ref) => {
     return (
@@ -20,6 +29,9 @@ const ActorCard = forwardRef<HTMLDivElement, ActorCardProps>(
             />
             <div className={styles.overlay}>
               <h3 className={styles.title}>{actor.name}</h3>
+            </div>
+            <div className={styles.popularity}>
+              {getPopularityEmoji(actor.popularity)}
             </div>
           </div>
         </Link>

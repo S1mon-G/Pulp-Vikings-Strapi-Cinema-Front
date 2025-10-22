@@ -10,6 +10,7 @@ export interface Actor {
   img: string;
   name: string;
   tmdb_id: number;
+  popularity: number;
 }
 
 export type ActorsResponse = StrapiResponse<Actor>;

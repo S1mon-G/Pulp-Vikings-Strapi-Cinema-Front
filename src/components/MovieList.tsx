@@ -29,6 +29,7 @@ export default function MovieList() {
       <div className={styles.header}>
         <h2>Films</h2>
         <div className={styles.filterControls}>
+          Classement par vote :{" "}
           <button
             onClick={() => setFilter("random")}
             className={filter === "random" ? styles.active : ""}
