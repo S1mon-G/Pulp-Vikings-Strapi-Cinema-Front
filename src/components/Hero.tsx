@@ -21,24 +21,6 @@ export default function Hero() {
         return data.data;
     };
 
-    const handleSearch = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!searchTerm.trim()) return;
-
-        const searchTermNormalized = normalize(searchTerm);
-
-        try {
-            const results = await fetchSearchResults(searchTermNormalized);
-
-            if (results.length === 1) {
-                const item = results[0];
-                navigate(item.type === "movie" ? `/movies/${item.id}` : `/actors/${item.id}`);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchTerm(value);
@@ -72,7 +54,7 @@ export default function Hero() {
         <section className={styles.hero}>
             <p>Tous les films. Toutes les stars. Une seule plateforme.</p>
 
-            <form className={styles.searchbarWrapper} onSubmit={handleSearch}>
+            <form className={styles.searchbarWrapper}>
                 <input
                     type="search"
                     className={styles.searchbar}
