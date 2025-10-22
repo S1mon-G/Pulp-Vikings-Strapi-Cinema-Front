@@ -1,0 +1,53 @@
+.movieListWrapper {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.filterControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filterControls button {
+  padding: 0.3rem 0.5rem;
+  border: 2px solid var(--border-color);
+  background: transparent;
+  color: var(--main-font-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filterControls button:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.filterControls button.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.redArrow {
+  width: 16px;
+}
+
+.greenArrow {
+  width: 16px;
+}

@@ -32,7 +32,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 2;
+  z-index: 6;
 }
 
 .burgerLine {
@@ -98,7 +98,7 @@
     background-color: var(--secondary-background-color);
     border-left: 2px solid var(--border-color);
     transition: right 0.3s ease;
-    z-index: 1;
+    z-index: 5;
     padding-top: 80px;
   }
 
@@ -115,4 +115,25 @@
   .nav ul li a {
     font-size: 1.2rem;
   }
+}
+
+.hoverUnderlineAnimation {
+  display: inline-block;
+  position: relative;
+}
+
+.hoverUnderlineAnimation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--border-color);
+  transition: transform 0.25s ease-out;
+}
+
+.hoverUnderlineAnimation:hover::after {
+  transform: scaleX(1);
 }
