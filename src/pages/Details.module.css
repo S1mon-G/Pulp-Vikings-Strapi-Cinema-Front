@@ -51,10 +51,19 @@
 .detailList {
     display: flex;
     gap: 2em;
+
+    @media screen and (max-width: 768px) {
+        flex-wrap: wrap;
+    }
 }
 
 .thumbnailDetail img {
     width: 150px;
     border: solid 1px var(--border-color);
     border-radius: 12px;
+    cursor: pointer;
+}
+
+.linkedSection {
+    margin-top: 2em
 }

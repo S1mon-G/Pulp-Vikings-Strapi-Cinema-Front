@@ -50,20 +50,22 @@ export default function ActorDetails() {
       </div>
       <article className={styles.description}>
         <p>{actor.biography}</p>
-        <h2>Movies</h2>
-        <ul className={styles.detailList}>
-          {actor.movies && actor.movies.length > 0 ? (
-            actor.movies.slice(0, 5).map((movie: any) => (
-              <li key={movie.documentId}>
-                <h3>{movie.title}</h3>
-                <div className={styles.thumbnailDetail}>
-                  <img src={movie.img} alt={movie.title} onClick={() => navigate(`/movies/${movie.documentId}`)} />
-                </div></li>
-            ))
-          ) : (
-            <p>No movies found for this actor.</p>
-          )}
-        </ul>
+        <div className={styles.linkedSection}>
+          <h2>Movies</h2>
+          <ul className={styles.detailList}>
+            {actor.movies && actor.movies.length > 0 ? (
+              actor.movies.slice(0, 5).map((movie: any) => (
+                <li key={movie.documentId}>
+                  <h3>{movie.title}</h3>
+                  <div className={styles.thumbnailDetail}>
+                    <img src={movie.img} alt={movie.title} onClick={() => navigate(`/movies/${movie.documentId}`)} />
+                  </div></li>
+              ))
+            ) : (
+              <p>No movies found for this actor.</p>
+            )}
+          </ul>
+        </div>
       </article>
     </section>
   );
