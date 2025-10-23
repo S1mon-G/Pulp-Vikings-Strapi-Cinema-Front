@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { actorService } from "../services/actorService";
 import ActorCard from "./ActorCard";
+import ActorCardSkeleton from "./ActorCardSkeleton";
 import HorizontalScrollList from "./HorizontalScrollList";
 import type { Actor } from "../types/actor";
 import styles from "./ActorList.module.css";
@@ -68,6 +69,7 @@ export default function ActorList() {
             <ActorCard actor={actor} />
           )
         }
+        renderSkeleton={() => <ActorCardSkeleton />}
         keyExtractor={(actor, index) => `${actor.id}-${index}`}
         itemWidth={250}
         itemsPerScroll={6}
