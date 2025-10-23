@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from './MovieDetails.module.css'
+import styles from './Details.module.css'
 
 export default function MovieDetails() {
   const { id } = useParams<{ id: string }>();
@@ -27,15 +27,15 @@ export default function MovieDetails() {
   if (!movie) return <p>movie not found</p>;
 
   return (
-    <section className={styles.movieSection}>
-      <article className={styles.movieInfos}>
+    <section className={`${styles.section} ${styles.movieSection}`}>
+      <article className={styles.infos}>
         <h1>{movie.title}</h1>
         <h2>{movie.director}</h2>
       </article >
-      <article className={styles.moviePoster}>
+      <article className={`${styles.thumbnail} ${styles.moviePoster}`}>
         <img src={movie.img} alt={movie.name} />
       </article>
-      <article className={styles.movieDescription}>
+      <article className={styles.description}>
         <p>{movie.description}</p>
       </article>
 
