@@ -8,7 +8,6 @@ interface MovieCardProps {
 }
 
 const getVoteColor = (vote: number): string => {
-  // Si la note est 0, retourner gris/noir
   if (vote === 0 || vote === null) {
     return "#555555";
   }
@@ -25,7 +24,7 @@ const MovieCard = forwardRef<HTMLDivElement, MovieCardProps>(
   ({ movie }, ref) => {
     return (
       <>
-        <Link to={`/movies/${movie.id}`}>
+        <Link to={`/movies/${movie.documentId}`}>
           <div ref={ref} className={styles.movieCard}>
             <img
               src={movie.img}

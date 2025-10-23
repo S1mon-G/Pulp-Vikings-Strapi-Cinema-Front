@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { movieService } from "../services/movieService";
 import type { Movie } from "../types/movie";
 import styles from "./MovieSidebar.module.css";
@@ -6,6 +7,7 @@ import styles from "./MovieSidebar.module.css";
 export default function MovieSidebar() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -37,7 +39,12 @@ export default function MovieSidebar() {
       <h3>📽️ Films populaires</h3>
       <div className={styles.movieList}>
         {movies.map((movie) => (
-          <div key={movie.id} className={styles.movieItem}>
+          <div 
+            key={movie.id} 
+            className={styles.movieItem}
+            onClick={() => navigate(`/movies/${movie.documentId}`)}
+            style={{ cursor: 'pointer' }}
+          >
             <img
               src={movie.img}
               alt={movie.title}

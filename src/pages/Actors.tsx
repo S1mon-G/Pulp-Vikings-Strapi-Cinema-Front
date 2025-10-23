@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { actorService } from "../services/actorService";
 import ActorCard from "../components/ActorCard";
-import ActorModal from "../components/ActorModal";
+import ModalActorCard from "../components/ModalActorCard";
 import HorizontalScrollList from "../components/HorizontalScrollList";
 import type { Actor } from "../types/actor";
 import styles from "./Actors.module.css";
@@ -14,8 +14,10 @@ export default function Actors() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleActorClick = (actor: Actor) => {
+    console.log("Actor clicked:", actor);
     setSelectedActor(actor);
     setIsModalOpen(true);
+    console.log("Modal should be open now");
   };
 
   const handleCloseModal = () => {
@@ -85,6 +87,7 @@ export default function Actors() {
             </div>
 
             <HorizontalScrollList<Actor>
+              renderSkeleton={() => <div className={styles.skeleton} />}
               fetchFn={fetchFunction}
               renderItem={(actor, _index, isLast, ref) =>
                 isLast ? (
@@ -103,7 +106,7 @@ export default function Actors() {
       </div>
 
       {/* Modal pour les détails de l'acteur */}
-      <ActorModal
+      <ModalActorCard
         actor={selectedActor}
         isOpen={isModalOpen}
         onClose={handleCloseModal}

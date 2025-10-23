@@ -1,6 +1,7 @@
 import { forwardRef, memo } from "react";
 import styles from "./ActorCard.module.css";
 import type { Actor } from "../types/actor";
+import { Link } from "react-router-dom";
 
 interface ActorCardProps {
   actor: Actor;
@@ -19,32 +20,34 @@ const getPopularityEmoji = (popularity: number): string => {
 const ActorCard = forwardRef<HTMLDivElement, ActorCardProps>(
   ({ actor, onActorClick }, ref) => {
     const handleClick = (e: React.MouseEvent) => {
-      e.preventDefault();
       if (onActorClick) {
+        e.preventDefault();
+        e.stopPropagation();
         onActorClick(actor);
       }
     };
 
     return (
-      <div 
-        ref={ref} 
-        className={styles.actorCard}
-        onClick={handleClick}
-        style={{ cursor: 'pointer' }}
-      >
-        <img
-          src={actor.img ? actor.img : "./img/placeholder-actor.jpg"}
-          alt={actor.name}
-          className={styles.actorImage}
-          loading="lazy"
-        />
-        <div className={styles.overlay}>
-          <h3 className={styles.title}>{actor.name}</h3>
+      <Link to={`/actors/${actor.documentId}`}>
+        <div 
+          ref={ref} 
+          className={styles.actorCard}
+          onClick={handleClick}
+        >
+          <img
+            src={actor.img ? actor.img : "./img/placeholder-actor.jpg"}
+            alt={actor.name}
+            className={styles.actorImage}
+            loading="lazy"
+          />
+          <div className={styles.overlay}>
+            <h3 className={styles.title}>{actor.name}</h3>
+          </div>
+          <div className={styles.popularity}>
+            {getPopularityEmoji(actor.popularity)}
+          </div>
         </div>
-        <div className={styles.popularity}>
-          {getPopularityEmoji(actor.popularity)}
-        </div>
-      </div>
+      </Link>
     );
   }
 );

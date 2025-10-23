@@ -81,7 +81,7 @@ export default function Movies() {
                   <MovieCard movie={movie} />
                 )
               }
-              keyExtractor={(movie, index) => `${movie.id}-${index}`}
+              keyExtractor={(movie, index) => `${movie.documentId}-${index}`}
               itemWidth={250}
               itemsPerScroll={6}
               pageSize={25}
