@@ -1,5 +1,13 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
+/**
+ * Récupère le token JWT depuis le localStorage
+ * Ce token est stocké par authService lors de la connexion
+ */
+const getAuthToken = (): string | null => {
+  return localStorage.getItem("jwt_token");
+};
+
 interface RequestOptions extends RequestInit {
   params?: Record<string, string | number>;
 }
@@ -9,6 +17,11 @@ class ApiService {
 
   constructor(baseURL: string) {
     this.baseURL = baseURL;
+  }
+
+  private getAuthHeaders(): Record<string, string> {
+    const token = getAuthToken();
+    return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
   private async request<T>(
@@ -30,6 +43,7 @@ class ApiService {
       ...fetchOptions,
       headers: {
         "Content-Type": "application/json",
+        ...this.getAuthHeaders(),
         ...fetchOptions.headers,
       },
     };

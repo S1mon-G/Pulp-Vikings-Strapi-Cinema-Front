@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from "./Details.module.css"
+import styles from "./Details.module.css";
 
 export default function ActorDetails() {
   const { id } = useParams<{ id: string }>();
@@ -10,7 +10,18 @@ export default function ActorDetails() {
   useEffect(() => {
     const fetchActor = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/actors/${id}`);
+        const token = localStorage.getItem("jwt_token");
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+        };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/actors/${id}`,
+          { headers }
+        );
         const data = await res.json();
         setActor(data.data);
       } catch (err) {
