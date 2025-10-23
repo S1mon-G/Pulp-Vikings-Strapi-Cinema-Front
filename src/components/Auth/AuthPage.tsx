@@ -41,7 +41,7 @@ const AuthPage = () => {
       <div className= {styles.authBox}>
         <div className= {styles.authTabs}>
           <button
-            className={`{styles.authTab} ${isLogin ? 'active' : ''}`}
+            className={`${styles.authTab} ${isLogin ? 'active' : ''}`}
             onClick={() => {
               setIsLogin(true);
               setError('');
@@ -49,6 +49,7 @@ const AuthPage = () => {
           >
             Connexion
           </button>
+
           <button
             className={`${styles.authTab} ${!isLogin ? 'active' : ''}`}
             onClick={() => {
