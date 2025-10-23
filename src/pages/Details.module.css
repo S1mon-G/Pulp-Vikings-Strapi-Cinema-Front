@@ -47,3 +47,14 @@
     grid-row-start: 2;
     max-width: 65ch;
 }
+
+.detailList {
+    display: flex;
+    gap: 2em;
+}
+
+.thumbnailDetail img {
+    width: 150px;
+    border: solid 1px var(--border-color);
+    border-radius: 12px;
+}
