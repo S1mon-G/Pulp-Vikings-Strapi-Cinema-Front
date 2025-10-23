@@ -47,3 +47,36 @@
     grid-row-start: 2;
     max-width: 65ch;
 }
+
+.detailList {
+    display: flex;
+    gap: 2em;
+
+    @media screen and (max-width: 768px) {
+        flex-wrap: wrap;
+    }
+}
+
+.thumbnailDetail img {
+    width: 150px;
+    height: 224px;
+    border: solid 1px var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.linkedSection {
+    margin-top: 2em
+}
+
+
+
+.paragraph p {
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: auto;
+    scrollbar-color: var(--border-color) white;
+    scrollbar-width: thin
+}

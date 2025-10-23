@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./Details.module.css";
 
@@ -6,7 +6,7 @@ export default function ActorDetails() {
   const { id } = useParams<{ id: string }>();
   const [actor, setActor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchActor = async () => {
       try {
@@ -19,11 +19,13 @@ export default function ActorDetails() {
         }
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/actors/${id}`,
+          `${import.meta.env.VITE_API_URL}/actors/${id}?populate=movies`,
           { headers }
         );
+
         const data = await res.json();
         setActor(data.data);
+        console.log(data.data.movies)
       } catch (err) {
         console.error(err);
       } finally {
@@ -47,7 +49,25 @@ export default function ActorDetails() {
         <img src={actor.img} alt={actor.name} />
       </div>
       <article className={styles.description}>
-        <p>{actor.biography}</p>
+        <div className={styles.paragraph}>
+          <p>{actor.biography}</p>
+
+        </div>
+        <div className={styles.linkedSection}>
+          <h2>Movies</h2>
+          <ul className={styles.detailList}>
+            {actor.movies && actor.movies.length > 0 ? (
+              actor.movies.slice(0, 5).map((movie: any) => (
+                <li key={movie.documentId}>
+                  <div className={styles.thumbnailDetail}>
+                    <img src={movie.img} alt={movie.title} onClick={() => navigate(`/movies/${movie.documentId}`)} />
+                  </div></li>
+              ))
+            ) : (
+              <p>No movies found for this actor.</p>
+            )}
+          </ul>
+        </div>
       </article>
     </section>
   );
