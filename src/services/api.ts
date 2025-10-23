@@ -1,9 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-/**
- * Récupère le token JWT depuis le localStorage
- * Ce token est stocké par authService lors de la connexion
- */
 const getAuthToken = (): string | null => {
   return localStorage.getItem("jwt_token");
 };
