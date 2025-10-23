@@ -1,22 +1,28 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import styles from './AuthPage.module.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import styles from "./AuthPage.module.css";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
-  const { login, register } = useAuth();
+
+  const { login, register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -25,11 +31,11 @@ const AuthPage = () => {
       } else {
         await register({ username, email, password });
       }
-      navigate('/');
+      navigate("/");
     } catch (err: any) {
       setError(
-        err.response?.data?.error?.message || 
-        'Une erreur est survenue. Veuillez réessayer.'
+        err.response?.data?.error?.message ||
+          "Une erreur est survenue. Veuillez réessayer."
       );
     } finally {
       setLoading(false);
@@ -37,31 +43,31 @@ const AuthPage = () => {
   };
 
   return (
-    <div className= {styles.authContainer}>
-      <div className= {styles.authBox}>
-        <div className= {styles.authTabs}>
+    <div className={styles.authContainer}>
+      <div className={styles.authBox}>
+        <div className={styles.authTabs}>
           <button
-            className={`{styles.authTab} ${isLogin ? 'active' : ''}`}
+            className={`{styles.authTab} ${isLogin ? "active" : ""}`}
             onClick={() => {
               setIsLogin(true);
-              setError('');
+              setError("");
             }}
           >
             Connexion
           </button>
           <button
-            className={`${styles.authTab} ${!isLogin ? 'active' : ''}`}
+            className={`${styles.authTab} ${!isLogin ? "active" : ""}`}
             onClick={() => {
               setIsLogin(false);
-              setError('');
+              setError("");
             }}
           >
             Inscription
           </button>
         </div>
 
-        <div className= {styles.authFormContainer}>
-          <h2>{isLogin ? 'Connexion' : 'Inscription'}</h2>
+        <div className={styles.authFormContainer}>
+          <h2>{isLogin ? "Connexion" : "Inscription"}</h2>
 
           {error && (
             <div className={`${styles.authAlert} ${styles.authAlertError}`}>
@@ -86,15 +92,17 @@ const AuthPage = () => {
 
             <div className={styles.authFormGroup}>
               <label htmlFor="email">
-                {isLogin ? 'Email ou nom d\'utilisateur' : 'Email'}
+                {isLogin ? "Email ou nom d'utilisateur" : "Email"}
               </label>
               <input
-                type={isLogin ? 'text' : 'email'}
+                type={isLogin ? "text" : "email"}
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder={isLogin ? 'john@example.com ou john_doe' : 'john@example.com'}
+                placeholder={
+                  isLogin ? "john@example.com ou john_doe" : "john@example.com"
+                }
               />
             </div>
 
@@ -111,15 +119,14 @@ const AuthPage = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              className={styles.authBtn}
-              disabled={loading}
-            >
+            <button type="submit" className={styles.authBtn} disabled={loading}>
               {loading
-                ? (isLogin ? 'Connexion...' : 'Inscription...')
-                : (isLogin ? 'Se connecter' : 'S\'inscrire')
-              }
+                ? isLogin
+                  ? "Connexion..."
+                  : "Inscription..."
+                : isLogin
+                ? "Se connecter"
+                : "S'inscrire"}
             </button>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styles from './Details.module.css'
+import styles from "./Details.module.css";
 
 export default function MovieDetails() {
   const { id } = useParams<{ id: string }>();
@@ -10,7 +10,18 @@ export default function MovieDetails() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/movies/${id}`);
+        const token = localStorage.getItem("jwt_token");
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+        };
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/movies/${id}`,
+          { headers }
+        );
         const data = await res.json();
         setMovie(data.data);
       } catch (err) {
@@ -31,14 +42,13 @@ export default function MovieDetails() {
       <article className={styles.infos}>
         <h1>{movie.title}</h1>
         <h2>{movie.director}</h2>
-      </article >
+      </article>
       <article className={`${styles.thumbnail} ${styles.moviePoster}`}>
         <img src={movie.img} alt={movie.name} />
       </article>
       <article className={styles.description}>
         <p>{movie.description}</p>
       </article>
-
     </section>
   );
 }
