@@ -1,9 +1,11 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
+
+//Redirige vers /auth si l'utilisateur n'est pas authentifié
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isAuthenticated, loading } = useAuth();
@@ -11,14 +13,16 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   // Afficher un loader pendant la vérification
   if (loading) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '1.5rem',
-        color: '#667eea'
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          fontSize: "1.5rem",
+          color: "#667eea",
+        }}
+      >
         Chargement...
       </div>
     );

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { movieService } from "../services/movieService";
 import MovieCard from "./MovieCard";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 import HorizontalScrollList from "./HorizontalScrollList";
 import type { Movie } from "../types/movie";
 import styles from "./MovieList.module.css";
@@ -29,6 +30,7 @@ export default function MovieList() {
       <div className={styles.header}>
         <h2>Films</h2>
         <div className={styles.filterControls}>
+          Classement par vote :{" "}
           <button
             onClick={() => setFilter("random")}
             className={filter === "random" ? styles.active : ""}
@@ -67,6 +69,7 @@ export default function MovieList() {
             <MovieCard movie={movie} />
           )
         }
+        renderSkeleton={() => <MovieCardSkeleton />}
         keyExtractor={(movie, index) => `${movie.id}-${index}`}
         itemWidth={250}
         itemsPerScroll={6}
