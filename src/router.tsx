@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import App from "./App";
+import Actors from "./pages/Actors";
+import Movies from "./pages/Movies";
 import ActorDetails from "./pages/ActorDetails";
 import MovieDetails from "./pages/MovieDetails";
 import AuthPage from "./components/Auth/AuthPage";
@@ -28,8 +30,16 @@ export const router = createBrowserRouter([
         element: <App />,
       },
       {
+        path: "/actors",
+        element: <Actors />,
+      },
+      {
         path: "/actors/:id",
         element: <ActorDetails />,
+      },
+      {
+        path: "/movies",
+        element: <Movies />,
       },
       {
         path: "/movies/:id",

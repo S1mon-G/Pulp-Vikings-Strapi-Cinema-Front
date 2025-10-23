@@ -48,4 +48,42 @@ export const movieService = {
   searchMovies: async (query: string): Promise<MoviesResponse> => {
     return api.get<MoviesResponse>("/movies/search", { q: query });
   },
+
+  getMoviesByGenre: async (
+    genre: string,
+    pageSize: number = 25
+  ): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/by-genre", {
+      genre,
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
+  getMoviesByYear: async (
+    year: number,
+    pageSize: number = 25
+  ): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/by-year", {
+      year,
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
+  getMoviesByGenreAndYear: async (
+    genre: string,
+    year: number,
+    pageSize: number = 25
+  ): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/by-genre-year", {
+      genre,
+      year,
+      "pagination[pageSize]": pageSize,
+    });
+  },
+
+  getLatestMovies: async (pageSize: number = 25): Promise<MoviesResponse> => {
+    return api.get<MoviesResponse>("/movies/latest", {
+      "pagination[pageSize]": pageSize,
+    });
+  },
 };

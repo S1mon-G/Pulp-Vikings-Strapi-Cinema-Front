@@ -8,7 +8,6 @@ interface MovieCardProps {
 }
 
 const getVoteColor = (vote: number): string => {
-  // Si la note est 0, retourner gris/noir
   if (vote === 0 || vote === null) {
     return "#555555";
   }
