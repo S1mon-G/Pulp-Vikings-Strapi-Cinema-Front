@@ -49,14 +49,16 @@ export default function ActorDetails() {
         <img src={actor.img} alt={actor.name} />
       </div>
       <article className={styles.description}>
-        <p>{actor.biography}</p>
+        <div className={styles.paragraph}>
+          <p>{actor.biography}</p>
+
+        </div>
         <div className={styles.linkedSection}>
           <h2>Movies</h2>
           <ul className={styles.detailList}>
             {actor.movies && actor.movies.length > 0 ? (
               actor.movies.slice(0, 5).map((movie: any) => (
                 <li key={movie.documentId}>
-                  <h3>{movie.title}</h3>
                   <div className={styles.thumbnailDetail}>
                     <img src={movie.img} alt={movie.title} onClick={() => navigate(`/movies/${movie.documentId}`)} />
                   </div></li>
