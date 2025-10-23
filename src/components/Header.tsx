@@ -1,12 +1,19 @@
 import { useState } from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { isAuthenticated, logout } = useAuth();
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -38,25 +45,36 @@ export default function Header() {
       <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ""}`}>
         <ul>
           <li>
-            <Link to="/" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className={styles.hoverUnderlineAnimation}
+            >
               Accueil
             </Link>
           </li>
           <li>
-            <Link to="/movies" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
+            <Link
+              to="/movies"
+              onClick={() => setIsMenuOpen(false)}
+              className={styles.hoverUnderlineAnimation}
+            >
               Films
             </Link>
           </li>
           <li>
-            <Link to="/actors" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}>
+            <Link
+              to="/actors"
+              onClick={() => setIsMenuOpen(false)}
+              className={styles.hoverUnderlineAnimation}
+            >
               Acteurs
             </Link>
           </li>
           <li>
-            <Link to="/login" onClick={() => setIsMenuOpen(false)} className={styles.hoverUnderlineAnimation}
-            >
-              Connexion
-            </Link>
+            <button onClick={handleLogout} className={styles.logoutBtn}>
+              Se déconnecter
+            </button>
           </li>
         </ul>
       </nav>

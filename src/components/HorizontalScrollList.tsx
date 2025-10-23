@@ -16,6 +16,7 @@ interface HorizontalScrollListProps<T> {
   itemWidth?: number;
   itemsPerScroll?: number;
   pageSize?: number;
+  renderSkeleton: () => ReactNode;
 }
 
 export default function HorizontalScrollList<T>({
@@ -25,6 +26,7 @@ export default function HorizontalScrollList<T>({
   itemWidth = 250,
   itemsPerScroll = 6,
   pageSize = 25,
+  renderSkeleton,
 }: HorizontalScrollListProps<T>) {
   const scrollContainerRef = useRef<HTMLDivElement>(null!);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -117,21 +119,34 @@ export default function HorizontalScrollList<T>({
         →
       </button>
       <div className={styles.scrollContainer} ref={scrollContainerRef}>
-        {items.map((item, index) => {
-          const isLast = items.length === index + 1;
-          return (
-            <div key={keyExtractor(item, index)}>
-              {renderItem(
-                item,
-                index,
-                isLast,
-                isLast ? lastItemRef : undefined
-              )}
-            </div>
-          );
-        })}
-        {loading && <div className={styles.loading}>Chargement...</div>}
-        {!hasMore && <div className={styles.end}>Fin</div>}
+        {items.length === 0 && loading ? (
+          // Afficher les skeletons pendant le chargement initial
+          Array.from({ length: 8 }).map((_, index) => (
+            <div key={`skeleton-${index}`}>{renderSkeleton()}</div>
+          ))
+        ) : (
+          <>
+            {items.map((item, index) => {
+              const isLast = items.length === index + 1;
+              return (
+                <div key={keyExtractor(item, index)}>
+                  {renderItem(
+                    item,
+                    index,
+                    isLast,
+                    isLast ? lastItemRef : undefined
+                  )}
+                </div>
+              );
+            })}
+            {loading &&
+              // Afficher quelques skeletons lors du chargement de plus d'items
+              Array.from({ length: 4 }).map((_, index) => (
+                <div key={`loading-skeleton-${index}`}>{renderSkeleton()}</div>
+              ))}
+            {!hasMore && <div className={styles.end}>Fin</div>}
+          </>
+        )}
       </div>
     </div>
   );

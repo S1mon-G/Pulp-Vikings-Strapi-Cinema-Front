@@ -72,7 +72,7 @@ export default function Movies() {
               </div>
             </div>
 
-            <HorizontalScrollList<Movie>
+            <HorizontalScrollList<Movie> renderSkeleton={() => <div className={styles.skeleton} />}
               fetchFn={fetchFunction}
               renderItem={(movie, _index, isLast, ref) =>
                 isLast ? (
