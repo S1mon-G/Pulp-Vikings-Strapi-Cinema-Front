@@ -1,0 +1,144 @@
+.sidebar {
+  width: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: fit-content;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 2rem;
+}
+
+.sidebar h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  color: #fff;
+  text-align: center;
+  border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.loading {
+  text-align: center;
+  color: #b0b0b0;
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+.movieList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.movieItem {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.movieItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(78, 205, 196, 0.3);
+  transform: translateX(5px);
+}
+
+.movieImage {
+  flex-shrink: 0;
+  width: 50px;
+  height: 75px;
+  border-radius: 6px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.movieInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.movieTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.movieYear {
+  font-size: 0.75rem;
+  color: #b0b0b0;
+  margin: 0 0 0.25rem 0;
+}
+
+.movieRating {
+  font-size: 0.75rem;
+  color: #4ecdc4;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Scrollbar personnalisée */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(78, 205, 196, 0.5);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(78, 205, 196, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 100%;
+    max-height: 40vh;
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1rem;
+  }
+  
+  .movieItem {
+    padding: 0.5rem;
+  }
+  
+  .movieImage {
+    width: 50px;
+    height: 75px;
+  }
+  
+  .movieTitle {
+    font-size: 0.85rem;
+  }
+}

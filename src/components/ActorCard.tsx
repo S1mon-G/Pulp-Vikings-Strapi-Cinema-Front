@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 interface ActorCardProps {
   actor: Actor;
+  onActorClick?: (actor: Actor) => void;
 }
 
 const getPopularityEmoji = (popularity: number): string => {
@@ -17,25 +18,38 @@ const getPopularityEmoji = (popularity: number): string => {
 };
 
 const ActorCard = forwardRef<HTMLDivElement, ActorCardProps>(
-  ({ actor }, ref) => {
+  ({ actor, onActorClick }, ref) => {
+    const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (onActorClick) {
+        onActorClick(actor);
+      }
+    };
+
     return (
-      <>
-        <Link to={`/actors/${actor.documentId}`}>
-          <div ref={ref} className={styles.actorCard}>
-            <img
-              src={actor.img ? actor.img : "./img/placeholder-actor.jpg"}
-              alt={actor.name}
-              className={styles.actorImage}
-            />
-            <div className={styles.overlay}>
-              <h3 className={styles.title}>{actor.name}</h3>
-            </div>
-            <div className={styles.popularity}>
-              {getPopularityEmoji(actor.popularity)}
-            </div>
+      <div 
+        ref={ref} 
+        className={styles.actorCard}
+        onClick={handleClick}
+        style={{ cursor: 'pointer' }}
+      >
+        <img
+          src={actor.img ? actor.img : "./img/placeholder-actor.jpg"}
+          alt={actor.name}
+          className={styles.actorImage}
+        />
+        <div className={styles.overlay}>
+          <h3 className={styles.title}>{actor.name}</h3>
+          <div className={styles.actorInfo}>
+            <span className={styles.birthYear}>
+              {new Date(actor.birth_date).getFullYear()}
+            </span>
           </div>
-        </Link>
-      </>
+        </div>
+        <div className={styles.popularity}>
+          {getPopularityEmoji(actor.popularity)}
+        </div>
+      </div>
     );
   }
 );
