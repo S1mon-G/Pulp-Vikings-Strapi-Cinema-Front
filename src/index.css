@@ -9,10 +9,9 @@
 :root {
   font-family: var(--main-font);
   line-height: 1.6;
-  font-weight: 400;
+  font-weight: 800;
   color: var(--main-font-color);
   background-color: var(--main-background-color);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
