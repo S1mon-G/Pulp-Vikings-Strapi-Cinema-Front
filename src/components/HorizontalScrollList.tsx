@@ -34,7 +34,7 @@ export default function HorizontalScrollList<T>({
 
   useHorizontalScroll(scrollContainerRef);
 
-  const { items, loading, isRefreshing, error, hasMore, lastItemRef, refresh } =
+  const { items, loading, isRefreshing, error, hasMore, lastItemRef, reset } =
     useInfiniteScroll({
       fetchFn,
       scrollContainerRef,
@@ -42,10 +42,9 @@ export default function HorizontalScrollList<T>({
     });
 
   useEffect(() => {
-    if (items.length > 0) {
-      refresh();
-    }
-  }, [fetchFn]);
+    // Réinitialiser complètement lors du changement de fetchFn
+    reset();
+  }, [fetchFn, reset]);
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {

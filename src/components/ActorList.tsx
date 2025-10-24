@@ -30,7 +30,7 @@ export default function ActorList() {
       <div className={styles.header}>
         <h2>Acteurs</h2>
         <div className={styles.filterControls}>
-          Classement par popularité :{" "}
+          <p className={styles.filterLabel}>Classement par popularité : </p>
           <button
             onClick={() => setFilter("random")}
             className={filter === "random" ? styles.active : ""}
