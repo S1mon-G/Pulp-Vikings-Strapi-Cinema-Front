@@ -24,10 +24,9 @@ export const useInfiniteScroll = <T>({
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
-  const loadingRef = useRef(false); // Évite les re-rendus inutiles
+  const loadingRef = useRef(false);
   const hasMoreRef = useRef(true);
 
-  // Fonction de chargement sans dépendances circulaires
   const loadMoreItems = useCallback(async () => {
     if (loadingRef.current || !hasMoreRef.current) return;
 
@@ -124,7 +123,6 @@ export const useInfiniteScroll = <T>({
   // Chargement initial
   useEffect(() => {
     loadMoreItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Cleanup de l'observer au démontage
