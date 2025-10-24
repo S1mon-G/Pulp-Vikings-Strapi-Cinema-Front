@@ -2,7 +2,7 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--main-background);
   min-height: 100vh;
   color: white;
 }
@@ -27,10 +27,7 @@
 .pageHeader h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+
 }
 
 .pageHeader p {
@@ -44,7 +41,7 @@
   border-radius: 20px;
   padding: 2rem;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .header {
@@ -103,30 +100,34 @@
   filter: brightness(0) invert(1);
 }
 
-/* Responsive design */
-@media (max-width: 1024px) {
+
+
+@media (max-width: 768px) {
   .layout {
     flex-direction: column;
     gap: 1.5rem;
+    max-width: 100vw;
   }
-}
 
-@media (max-width: 768px) {
   .moviesPage {
     padding: 1rem;
   }
-  
+
   .pageHeader h1 {
     font-size: 2rem;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .filterControls {
     width: 100%;
     justify-content: center;
+  }
+
+  .mainContent {
+    width: 100vw;
   }
 }
