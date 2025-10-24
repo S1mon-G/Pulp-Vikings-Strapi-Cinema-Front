@@ -19,15 +19,19 @@ export const useInfiniteScroll = <T>({
   pageSize = 25,
 }: UseInfiniteScrollProps<T>) => {
   const [items, setItems] = useState<T[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
+  const loadingRef = useRef(false); // Évite les re-rendus inutiles
+  const hasMoreRef = useRef(true);
 
+  // Fonction de chargement sans dépendances circulaires
   const loadMoreItems = useCallback(async () => {
-    if (loading || !hasMore) return;
+    if (loadingRef.current || !hasMoreRef.current) return;
 
+    loadingRef.current = true;
     setLoading(true);
     setError(null);
 
@@ -36,6 +40,7 @@ export const useInfiniteScroll = <T>({
 
       if (data.data.length === 0) {
         setHasMore(false);
+        hasMoreRef.current = false;
       } else {
         setItems((prev) => [...prev, ...data.data]);
       }
@@ -43,35 +48,39 @@ export const useInfiniteScroll = <T>({
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
       setLoading(false);
+      loadingRef.current = false;
     }
-  }, [fetchFn, pageSize, loading, hasMore]);
+  }, [fetchFn, pageSize]);
 
-  // Et ici c'est pour charger avant d'arriver au bout de la liste
+  // Intersection Observer pour le scroll infini
   const lastItemRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (loading) return;
+      if (loadingRef.current) return;
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
+          if (entries[0].isIntersecting && hasMoreRef.current) {
             loadMoreItems();
           }
         },
         {
           root: scrollContainerRef.current,
-          rootMargin: "0px 200px 0px 0px", // <== augmenter si besoin !!!
+          rootMargin: "0px 200px 0px 0px",
           threshold: 0.1,
         }
       );
 
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore, loadMoreItems, scrollContainerRef]
+    [loadMoreItems, scrollContainerRef]
   );
 
-  // Evite un flicker (prévention contre l'épillepsie on est des gens sympa)
+  // Rafraîchissement sans skeleton (avec overlay)
   const refresh = useCallback(async () => {
+    if (loadingRef.current) return;
+
+    loadingRef.current = true;
     setIsRefreshing(true);
     setError(null);
 
@@ -79,15 +88,52 @@ export const useInfiniteScroll = <T>({
       const data = await fetchFn(pageSize);
       setItems(data.data);
       setHasMore(data.data.length > 0);
+      hasMoreRef.current = data.data.length > 0;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
       setIsRefreshing(false);
+      loadingRef.current = false;
     }
   }, [fetchFn, pageSize]);
 
+  // Réinitialisation complète (avec skeletons)
+  const reset = useCallback(async () => {
+    if (loadingRef.current) return;
+
+    loadingRef.current = true;
+    setItems([]);
+    setHasMore(true);
+    hasMoreRef.current = true;
+    setError(null);
+    setLoading(true);
+
+    try {
+      const data = await fetchFn(pageSize);
+      setItems(data.data);
+      setHasMore(data.data.length > 0);
+      hasMoreRef.current = data.data.length > 0;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Une erreur est survenue");
+    } finally {
+      setLoading(false);
+      loadingRef.current = false;
+    }
+  }, [fetchFn, pageSize]);
+
+  // Chargement initial
   useEffect(() => {
     loadMoreItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Cleanup de l'observer au démontage
+  useEffect(() => {
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
   }, []);
 
   return {
@@ -98,5 +144,6 @@ export const useInfiniteScroll = <T>({
     hasMore,
     lastItemRef,
     refresh,
+    reset,
   };
 };
