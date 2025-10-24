@@ -26,7 +26,7 @@ Application web moderne de catalogue de films et d'acteurs, construite avec Reac
 - 🎨 **Interface moderne** : Design responsive avec CSS Modules
 - 🔄 **Chargement infini** : Pagination automatique pour une expérience fluide
 - 📱 **Design responsive** : Compatible mobile, tablette et desktop
-- ⚡ **Performance optimisée** : Mise en cache et lazy loading
+- ⚡ **Performance optimisée** : Lazy loading et skeletons
 - 🎭 **Modales interactives** : Affichage dynamique des informations supplémentaires
 - 🛡️ **Routes protégées** : Accès sécurisé aux pages authentifiées
 
@@ -143,8 +143,6 @@ src/
 │   ├── actor           # Types acteur
 │   ├── movie           # Types film
 │   └── strapi          # Types Strapi
-├── utils/              # Utilitaires
-│   └── cache           # Gestion du cache
 ├── App.tsx             # Composant racine
 ├── main.tsx            # Point d'entrée
 └── router.tsx          # Configuration du routeur
