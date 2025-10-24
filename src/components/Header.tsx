@@ -19,11 +19,13 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img
-          src="public/logo.png"
-          className={styles.logoImage}
-          alt="Cineverse logo"
-        />
+        <Link to="/">
+          <img
+            src="public/logo.png"
+            className={styles.logoImage}
+            alt="Cineverse logo"
+          />
+        </Link>
       </div>
 
       <button
