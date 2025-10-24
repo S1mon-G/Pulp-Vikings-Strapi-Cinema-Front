@@ -1,6 +1,5 @@
 import { api } from "./api";
 import type { ActorsResponse, Actor } from "../types/actor";
-import { apiCache } from "../utils/cache";
 
 export const actorService = {
   getActors: async (
@@ -14,15 +13,9 @@ export const actorService = {
   },
 
   getRandomActors: async (pageSize: number = 25): Promise<ActorsResponse> => {
-    const cacheKey = `random-actors-${pageSize}`;
-    const cached = apiCache.get<ActorsResponse>(cacheKey);
-    if (cached) return cached;
-
-    const data = await api.get<ActorsResponse>("/actors/random-list", {
+    return api.get<ActorsResponse>("/actors/random-list", {
       "pagination[pageSize]": pageSize,
     });
-    apiCache.set(cacheKey, data);
-    return data;
   },
 
   getActorById: async (id: number): Promise<Actor> => {
@@ -37,15 +30,9 @@ export const actorService = {
     order: "asc" | "desc" = "desc",
     pageSize: number = 25
   ): Promise<ActorsResponse> => {
-    const cacheKey = `actors-popularity-${order}-${pageSize}`;
-    const cached = apiCache.get<ActorsResponse>(cacheKey);
-    if (cached) return cached;
-
-    const data = await api.get<ActorsResponse>("/actors/by-rating", {
+    return api.get<ActorsResponse>("/actors/by-rating", {
       order,
       "pagination[pageSize]": pageSize,
     });
-    apiCache.set(cacheKey, data);
-    return data;
   },
 };
